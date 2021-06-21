@@ -36,7 +36,7 @@
 # uncomment the following 3 lines for linux (tested on 2.0.33/redhat 5)
 CC		= gcc
 CFLAGS		= -g -DREADLINE -I/usr/local/include
-LIBS		= -L/usr/local/lib -lreadline -lhistory -lncurses
+LIBS		= -L/usr/local/lib -lreadline -lhistory -lncurses -ltinfo
 
 RPCGEN		= rpcgen
 RGFLAGS		= -C
@@ -47,10 +47,10 @@ RPCGEN_MOUNT	= mount.h mount_clnt.c mount_svc.c mount_xdr.c
 RPCGEN_NFS_PROT	= nfs_prot.h nfs_prot_clnt.c nfs_prot_svc.c nfs_prot_xdr.c
 
 nfsshell:	$(NFS_OBJECTS)
-	$(CC) -g -o nfsshell $(NFS_OBJECTS) $(LIBS)
+	$(CC) -g -static -o nfsshell $(NFS_OBJECTS) $(LIBS)
 
 steal:	$(STEAL_OBJECTS)
-	$(CC) -g -o steal $(STEAL_OBJECTS) $(LIBS)
+	$(CC) -g -static -o steal $(STEAL_OBJECTS) $(LIBS)
 
 lint-nfs:
 	lint nfsshell.c mount_clnt.c mount_xdr.c
